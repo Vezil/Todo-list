@@ -23,6 +23,7 @@ export default {
 
 *{
   box-sizing:border-box;
+  font-size: 24px;
 }
 .container{
     max-width:600px;
