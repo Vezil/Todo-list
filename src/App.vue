@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="container">
-    <img src="./assets/logo.png">
+    
     <HelloWorld/>
     <TodoList/>
   </div>
@@ -24,6 +24,8 @@ export default {
 *{
   box-sizing:border-box;
   font-size: 24px;
+  background-color: #567781;
+  color:aquamarine;
 }
 .container{
     max-width:600px;

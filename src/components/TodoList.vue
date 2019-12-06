@@ -1,17 +1,22 @@
 <template>
   <div>
       <input type="text" class="todo-input" placeholder="What do you have to do?" v-model="newTodo" @keyup.enter="addTodo">
+
+      <transition-group name="fade" enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
       <div v-for="(todo,index) in todos" :key="todo.id" class="todo-item">
 
               <div class="todo-item-left">
-                  <div v-if="!todo.editing" class="todo-item-label" @dblclick="editTodo(todo)"><b>{{todo.title}}</b></div>
+                  <input type="checkbox" class="todo-checkbox" v-model="todo.done"/>
+
+                  <div v-if="!todo.editing" class="todo-item-label" :class="{completed: todo.done}" @dblclick="editTodo(todo)"><b>{{todo.title}}</b></div>
               <input type="text" class="todo-item-edit" v-else v-model="todo.title" @blur="editDone(todo)"
-               @keyup.enter="editDone(todo)" v-focus>
+               @keyup.enter="editDone(todo)" @keyup.esc="editCancel(todo)" v-focus>
           </div>
 
           <div class="delete-todo" @click="removeTodo(index)">&times</div>
-
-    </div>
+    
+     </div>
+    </transition-group>
   </div>
 </template>
 
@@ -64,10 +69,17 @@ export default {
           this.idForTodo++
       },
       editTodo(todo){
+          this.titleEditCashe=todo.title
           todo.editing=true
       },
       editDone(todo){
-
+        if(todo.title.trim() == 0){
+              todo.title = this.titleEditCashe
+          }
+            todo.editing = false
+      },
+      editCancel(todo){
+            todo.title = this.titleEditCashe
             todo.editing = false
       },
 
@@ -81,6 +93,7 @@ export default {
 
 
 <style>
+@import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.css");
     .todo-input{
 
         width:100%;
@@ -119,6 +132,15 @@ export default {
 
         display:flex;
         align-items: center;
+    }
+     .todo-input::placeholder{
+        color:rgb(78, 235, 247);
+    }
+    .completed{
+        text-decoration: line-through;
+        color: gray;
+        opacity:0.2;
+        transition: 1s;
     }
 
 </style>
