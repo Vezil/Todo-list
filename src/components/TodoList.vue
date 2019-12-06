@@ -5,7 +5,8 @@
 
               <div class="todo-item-left">
                   <div v-if="!todo.editing" class="todo-item-label" @dblclick="editTodo(todo)"><b>{{todo.title}}</b></div>
-              <input type="text" class="todo-item-edit" v-else v-model="todo.title" @blur="editDone(todo)" @keyup.enter="editDone(todo)">
+              <input type="text" class="todo-item-edit" v-else v-model="todo.title" @blur="editDone(todo)"
+               @keyup.enter="editDone(todo)" v-focus>
           </div>
 
           <div class="delete-todo" @click="removeTodo(index)">&times</div>
@@ -38,6 +39,16 @@ export default {
       ]
     }
   },
+
+//fixing issue from focus
+  directives: {
+  focus: {
+    inserted: function (el) {
+      el.focus()
+    }
+  }
+},
+
   methods:{
       addTodo() {
           if(this.newTodo.trim() == 0){
