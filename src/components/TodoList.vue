@@ -1,28 +1,22 @@
 <template>
   <div>
-      <input type="text" class="todo-input" placeholder="What do you have to do?" v-model="newTodo" @keyup.enter="addTodo">
+    <input type="text" class="todo-input" placeholder="What do you have to do?" v-model="newTodo" @keyup.enter="addTodo">
 
-      <transition-group name="fade" enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
-      <div v-for="(todo,index) in todos" :key="todo.id" class="todo-item">
-
-              <div class="todo-item-left">
-                  <input type="checkbox" class="todo-checkbox" v-model="todo.done"/>
-
-                  <div v-if="!todo.editing" class="todo-item-label" :class="{completed: todo.done}" @dblclick="editTodo(todo)"><b>{{todo.title}}</b></div>
-              <input type="text" class="todo-item-edit" v-else v-model="todo.title" @blur="editDone(todo)"
-               @keyup.enter="editDone(todo)" @keyup.esc="editCancel(todo)" v-focus>
-          </div>
-
-          <div class="delete-todo" @click="removeTodo(index)">&times</div>
-    
-     </div>
+    <transition-group name="fade" enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
+        <todo-item v-for="(todo,index) in todos" :key="todo.id" :todo="todo" @removedTodo="removeTodo" @finishEdit="finishEdit"
+        :index="index">                  
+       </todo-item>
     </transition-group>
   </div>
 </template>
 
 <script>
+import TodoItem from './TodoItem'
 export default {
   name: 'TodoList',
+  components:{
+      TodoItem,
+  },
 
   data () {
     return {
@@ -45,15 +39,6 @@ export default {
     }
   },
 
-//fixing issue from focus
-  directives: {
-  focus: {
-    inserted: function (el) {
-      el.focus()
-    }
-  }
-},
-
   methods:{
       addTodo() {
           if(this.newTodo.trim() == 0){
@@ -68,24 +53,14 @@ export default {
           this.newTodo=''
           this.idForTodo++
       },
-      editTodo(todo){
-          this.titleEditCashe=todo.title
-          todo.editing=true
-      },
-      editDone(todo){
-        if(todo.title.trim() == 0){
-              todo.title = this.titleEditCashe
-          }
-            todo.editing = false
-      },
-      editCancel(todo){
-            todo.title = this.titleEditCashe
-            todo.editing = false
-      },
 
       removeTodo(index){
           this.todos.splice(index,1)
 
+      },
+      finishEdit(data){
+
+          this.todos.splice(data.index,1,data.todo)
       }
   }
 }
@@ -99,6 +74,7 @@ export default {
         width:100%;
         padding: 10px 18px;
         margin-bottom: 16px;
+        text-shadow: 1px 1px #0a1f18;
      
     }
     .todo-item{
