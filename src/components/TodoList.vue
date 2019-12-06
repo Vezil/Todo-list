@@ -2,10 +2,15 @@
   <div>
       <input type="text" class="todo-input" placeholder="What do you have to do?" v-model="newTodo" @keyup.enter="addTodo">
       <div v-for="(todo,index) in todos" :key="todo.id" class="todo-item">
-          <div>{{todo.title}}</div>
+
+              <div class="todo-item-left">
+                  <div v-if="!todo.editing" class="todo-item-label" @dblclick="editTodo(todo)"><b>{{todo.title}}</b></div>
+              <input type="text" class="todo-item-edit" v-else v-model="todo.title" @blur="editDone(todo)" @keyup.enter="editDone(todo)">
+          </div>
+
           <div class="delete-todo" @click="removeTodo(index)">&times</div>
 
-      </div>
+    </div>
   </div>
 </template>
 
@@ -22,11 +27,13 @@ export default {
           'id':1,
           'title':'Destroy mr nasty',
           'done':false,
+          'editing':false,
       },
       {
           'id':2,
           'title':'Destroy mr pig',
           'done':false,
+          'editing':false,    
       }
       ]
     }
@@ -45,6 +52,14 @@ export default {
           this.newTodo=''
           this.idForTodo++
       },
+      editTodo(todo){
+          todo.editing=true
+      },
+      editDone(todo){
+
+            todo.editing = false
+      },
+
       removeTodo(index){
           this.todos.splice(index,1)
 
@@ -75,6 +90,24 @@ export default {
     }
     .delete-todo:hover{
         color:red;
+    }
+
+    .todo-item-edit{
+        display: flex;
+        margin-left:12px;
+        width:100%;
+        padding:10px;
+        border: 1px solid #ccc;
+    }
+    .todo-item-label{
+        padding: 10px;
+        border: 1px solid rgb(12, 58, 12);
+        margin-left: 12px;
+    }
+    .todo-item-left{
+
+        display:flex;
+        align-items: center;
     }
 
 </style>
