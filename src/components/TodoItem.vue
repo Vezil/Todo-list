@@ -43,7 +43,7 @@ export default {
   },
     methods: {
         removeTodo(index){
-            eventBus.$emit('removedTodo', index)
+            this.$store.state.todos.splice(index,1)
         },
       editTodo(){
           this.titleEditCashe=this.title
@@ -54,15 +54,13 @@ export default {
               this.title = this.titleEditCashe
           }
             this.editing = false
-            eventBus.$emit('finishEdit', {
-                'index':this.index,
-                'todo':{
+            const index = this.$store.state.todos.findIndex(item =>item.id ==this.id);
+            this.$store.state.todos.splice(index,1,{
 
                     'id':this.id,
                     'title': this.title,
                     'done': this.done,
                     'editing': this.editing
-                }
             })
       },
       editCancel(){

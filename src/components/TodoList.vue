@@ -2,7 +2,7 @@
   <div>
     <input type="text" class="todo-input" placeholder="What do you have to do?" v-model="newTodo" @keyup.enter="addTodo">
 
-    <transition-group name="fade" enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
+    <transition-group name="fade" enter-active-class="animated bounceIn" leave-active-class="animated bounceOut" >
         <todo-item v-for="(todo,index) in todos" :key="todo.id" :todo="todo" 
         :index="index">                  
        </todo-item>
@@ -22,25 +22,13 @@ export default {
     return {
       newTodo: '',
       idForTodo: 3,
-      todos:[
-      {
-          'id':1,
-          'title':'Destroy mr nasty',
-          'done':false,
-          'editing':false,
-      },
-      {
-          'id':2,
-          'title':'Destroy mr pig',
-          'done':false,
-          'editing':false,    
-      }
-      ]
+      todos:this.$store.state.todos,
     }
   },
   created(){
-      eventBus.$on('removedTodo',(index)=> this.removeTodo(index))
+
       eventBus.$on('finishEdit',(data)=> this.finishEdit(data))
+      
   },
 
   methods:{
@@ -48,7 +36,7 @@ export default {
           if(this.newTodo.trim() == 0){
               return
           }
-          this.todos.push({
+          this.$store.state.todos.push({
               id: this.idForTodo,
               title: this.newTodo,
               done:false,
@@ -56,19 +44,10 @@ export default {
       
           this.newTodo=''
           this.idForTodo++
-      },
-
-      removeTodo(index){
-          this.todos.splice(index,1)
-
-      },
-      finishEdit(data){
-
-          this.todos.splice(data.index,1,data.todo)
-      }
-      
+      }, 
   }
 }
+
 </script>
 
 
