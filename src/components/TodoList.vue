@@ -25,21 +25,15 @@ export default {
       todos:this.$store.state.todos,
     }
   },
-  created(){
-
-      eventBus.$on('finishEdit',(data)=> this.finishEdit(data))
-      
-  },
-
-  methods:{
+   
+   methods:{
       addTodo() {
           if(this.newTodo.trim() == 0){
               return
           }
-          this.$store.state.todos.push({
+          this.$store.commit('addTodo',{
               id: this.idForTodo,
               title: this.newTodo,
-              done:false,
           })
       
           this.newTodo=''

@@ -6,7 +6,7 @@
         <input type="text" class="todo-item-edit" v-else v-model="title" @blur="editDone"
         @keyup.enter="editDone" @keyup.esc="editCancel" v-focus>
     </div>
-    <div class="delete-todo" @click="removeTodo(index)">&times</div>
+    <div class="delete-todo" @click="removeTodo(todo.id)">&times</div>
 </div>
 </template>
 
@@ -42,8 +42,8 @@ export default {
     }
   },
     methods: {
-        removeTodo(index){
-            this.$store.state.todos.splice(index,1)
+        removeTodo(id){
+            this.$store.commit('deleteTodo',id)
         },
       editTodo(){
           this.titleEditCashe=this.title
@@ -54,8 +54,8 @@ export default {
               this.title = this.titleEditCashe
           }
             this.editing = false
-            const index = this.$store.state.todos.findIndex(item =>item.id ==this.id);
-            this.$store.state.todos.splice(index,1,{
+
+            this.$store.commit('updateTodo',{
 
                     'id':this.id,
                     'title': this.title,
