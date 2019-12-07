@@ -43,7 +43,7 @@ export default {
   },
     methods: {
         removeTodo(index){
-            this.$emit('removedTodo', index)
+            eventBus.$emit('removedTodo', index)
         },
       editTodo(){
           this.titleEditCashe=this.title
@@ -54,7 +54,7 @@ export default {
               this.title = this.titleEditCashe
           }
             this.editing = false
-            this.$emit('finishEdit', {
+            eventBus.$emit('finishEdit', {
                 'index':this.index,
                 'todo':{
 

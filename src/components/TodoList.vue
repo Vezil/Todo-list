@@ -3,7 +3,7 @@
     <input type="text" class="todo-input" placeholder="What do you have to do?" v-model="newTodo" @keyup.enter="addTodo">
 
     <transition-group name="fade" enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
-        <todo-item v-for="(todo,index) in todos" :key="todo.id" :todo="todo" @removedTodo="removeTodo" @finishEdit="finishEdit"
+        <todo-item v-for="(todo,index) in todos" :key="todo.id" :todo="todo" 
         :index="index">                  
        </todo-item>
     </transition-group>
@@ -38,6 +38,10 @@ export default {
       ]
     }
   },
+  created(){
+      eventBus.$on('removedTodo',(index)=> this.removeTodo(index))
+      eventBus.$on('finishEdit',(data)=> this.finishEdit(data))
+  },
 
   methods:{
       addTodo() {
@@ -62,6 +66,7 @@ export default {
 
           this.todos.splice(data.index,1,data.todo)
       }
+      
   }
 }
 </script>
