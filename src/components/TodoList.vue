@@ -18,14 +18,16 @@ export default {
       TodoItem,
   },
 
-  data () {
+  data() {
     return {
       newTodo: '',
       idForTodo: 3,
       todos:this.$store.state.todos,
     }
   },
-   
+  created() {
+      this.$store.dispatch('retrieveTodos')
+  },  
    methods:{
       addTodo() {
           if(this.newTodo.trim() == 0){

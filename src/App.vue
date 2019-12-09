@@ -1,7 +1,5 @@
 <template>
   <div id="app" class="container">
-    
-    <HelloWorld/>
     <TodoList/>
   </div>
 </template>
