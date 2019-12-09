@@ -4,25 +4,12 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000/api/'
+axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
 
 export const store = new Vuex.Store({
 
     state:{
-        todos:[
-            // {
-            //     'id':1,
-            //     'title':'Destroy mr nasty',
-            //     'done':false,
-            //     'editing':false,
-            // },
-            // {
-            //     'id':2,
-            //     'title':'Destroy mr pig',
-            //     'done':false,
-            //     'editing':false,    
-            // },
-        ]
+        todos:[],
     },
     mutations:{
         addTodo(state,todo){
@@ -57,12 +44,39 @@ export const store = new Vuex.Store({
         retrieveTodos(context){
             axios.get('/todos')
             .then(response =>{
-                console.log(response.data);
-                 context.commit('retrieveTodos',response.data)
-                //this.state.todos = response.data
-                console.log(response.data);
+                 context.commit('retrieveTodos', response.data)
             })
             .catch(error=>{console.log(error)})
         },
+        addTodo(context,todo) {
+
+            axios.post('/todos',{
+                title: todo.title,
+                done: false,
+            })
+            .then(response =>{
+                 context.commit('addTodo', response.data)
+            })
+            .catch(error=>{console.log(error)})
+        },
+        updateTodo(context,todo) {
+
+            axios.patch('/todos/'+ todo.id,{
+                title: todo.title,
+                done: todo.done,
+            })
+            .then(response =>{
+                 context.commit('updateTodo', response.data)
+            })
+            .catch(error=>{console.log(error)})
+        },
+        deleteTodo(context,id) {
+
+            axios.delete('/todos/'+ id)
+            .then(response =>{
+                 context.commit('deleteTodo', id)
+            })
+            .catch(error=>{console.log(error)})
+        }
     }
 })

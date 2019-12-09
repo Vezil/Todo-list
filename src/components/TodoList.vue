@@ -2,8 +2,8 @@
   <div>
     <input type="text" class="todo-input" placeholder="What do you have to do?" v-model="newTodo" @keyup.enter="addTodo">
 
-    <transition-group name="fade" enter-active-class="animated bounceIn" leave-active-class="animated bounceOut" >
-        <todo-item v-for="(todo,index) in todos" :key="todo.id" :todo="todo" 
+    <transition-group name="fade" enter-active-class="animated fadeIn" leave-active-class="animated flipOutX" >
+        <todo-item v-for="(todo,index) in this.$store.state.todos" :key="todo.id" :todo="todo" 
         :index="index">                  
        </todo-item>
     </transition-group>
@@ -22,18 +22,18 @@ export default {
     return {
       newTodo: '',
       idForTodo: 3,
-      todos:this.$store.state.todos,
+      //todos:this.$store.state.todos,
     }
   },
   created() {
-      this.$store.dispatch('retrieveTodos')
+      this.$store.dispatch('retrieveTodos') 
   },  
    methods:{
       addTodo() {
           if(this.newTodo.trim() == 0){
               return
           }
-          this.$store.commit('addTodo',{
+          this.$store.dispatch('addTodo',{
               id: this.idForTodo,
               title: this.newTodo,
           })

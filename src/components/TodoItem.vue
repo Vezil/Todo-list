@@ -1,7 +1,7 @@
 <template>
 <div class="todo-item">
     <div class="todo-item-left">
-        <input type="checkbox" class="todo-checkbox" v-model="done"/>
+        <input type="checkbox" class="todo-checkbox" v-model="done" @change="editDone"/>
         <div v-if="!editing" class="todo-item-label" :class="{completed: done}" @dblclick="editTodo"><b>{{title}}</b></div>
         <input type="text" class="todo-item-edit" v-else v-model="title" @blur="editDone"
         @keyup.enter="editDone" @keyup.esc="editCancel" v-focus>
@@ -42,8 +42,8 @@ export default {
     }
   },
     methods: {
-        removeTodo(id){
-            this.$store.commit('deleteTodo',id)
+      removeTodo(id){
+            this.$store.dispatch('deleteTodo',id)
         },
       editTodo(){
           this.titleEditCashe=this.title
@@ -55,7 +55,7 @@ export default {
           }
             this.editing = false
 
-            this.$store.commit('updateTodo',{
+            this.$store.dispatch('updateTodo',{
 
                     'id':this.id,
                     'title': this.title,
