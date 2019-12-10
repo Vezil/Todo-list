@@ -9,8 +9,13 @@ axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
 export const store = new Vuex.Store({
 
     state:{
-        token: null,
+        token: localStorage.getItem('access_token') || null,
         todos:[],
+    },
+    getters:{
+        loggedIn(state) {
+            return state.token != null
+        }
     },
     mutations:{
         addTodo(state,todo){
@@ -42,10 +47,52 @@ export const store = new Vuex.Store({
         },
         retrieveToken(state,token) {
             state.token = token
+        },
+        destroyToken(state){
+            state.token = null;
         }
     },
     actions:{
+        register(context,data) {
+            return new Promise((resolve,reject) => {
+                axios.post('/register',{
+                    name: data.name,
+                    email: data.email,
+                    password: data.password,
+                })
+                .then(response =>{
+                    resolve(response)
+                })
+                .catch(error=>{
+                    reject(error)           
+                    })
+              })
+        },
+        destroyToken(context) {
+
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.state.token
+
+            if(context.getters.loggedIn) {           
+                return new Promise((resolve,reject) => {
+                    axios.post('/logout')
+                    .then(response =>{
+                        localStorage.removeItem('access_token')
+                        context.commit('destroyToken')
+                        resolve(response)
+
+                    })
+                    .catch(error=>{
+                        console.log(error)
+                        localStorage.removeItem('access_token')
+                        context.commit('destroyToken')
+                        reject(error)           
+                        })
+                    })
+            }
+        },
         retrieveToken(context,credentials) {
+
+        return new Promise((resolve,reject) => {
             axios.post('/login',{
                 username: credentials.username,
                 password: credentials.password,
@@ -54,8 +101,15 @@ export const store = new Vuex.Store({
                 const token = response.data.access_token
                 localStorage.setItem('access_token', token)
                 context.commit('retrieveToken', token)
+                resolve(response)
+
             })
-            .catch(error=>{console.log(error)})
+            .catch(error=>{
+                console.log(error)
+                 reject(error)
+                
+                })
+            })
         },
         retrieveTodos(context){
             axios.get('/todos')
