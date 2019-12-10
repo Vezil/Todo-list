@@ -9,6 +9,7 @@ axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
 export const store = new Vuex.Store({
 
     state:{
+        token: null,
         todos:[],
     },
     mutations:{
@@ -38,9 +39,24 @@ export const store = new Vuex.Store({
         },
         retrieveTodos(state,todos){
             state.todos = todos
+        },
+        retrieveToken(state,token) {
+            state.token = token
         }
     },
     actions:{
+        retrieveToken(context,credentials) {
+            axios.post('/login',{
+                username: credentials.username,
+                password: credentials.password,
+            })
+            .then(response =>{
+                const token = response.data.access_token
+                localStorage.setItem('access_token', token)
+                context.commit('retrieveToken', token)
+            })
+            .catch(error=>{console.log(error)})
+        },
         retrieveTodos(context){
             axios.get('/todos')
             .then(response =>{
