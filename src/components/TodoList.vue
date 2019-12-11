@@ -1,5 +1,8 @@
 <template>
   <div>
+      <div class="hello-container">
+                Welcome, {{ name }} this is your Todo list. Do your best !
+      </div>
     <input type="text" class="todo-input" placeholder="What do you have to do?" v-model="newTodo" @keyup.enter="addTodo">
 
     <transition-group name="fade" enter-active-class="animated fadeIn" leave-active-class="animated flipOutX" >
@@ -22,11 +25,16 @@ export default {
     return {
       newTodo: '',
       idForTodo: 3,
-      //todos:this.$store.state.todos,
+      name:'',
+      
     }
   },
   created() {
       this.$store.dispatch('retrieveTodos') 
+      this.$store.dispatch('retrieveName') 
+      .then(response => {
+          this.name = response.data.name
+      })
   },  
    methods:{
       addTodo() {
@@ -97,6 +105,10 @@ export default {
         color: gray;
         opacity:0.2;
         transition: 1s;
+    }
+    .hello-container{
+        margin-bottom: 20px;
+        color:rgb(235, 240, 230);
     }
 
 </style>

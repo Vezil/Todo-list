@@ -16,6 +16,11 @@
             </div>
             <div class="form-control">
                 <button type="submit" class="btn-submit">Create Account</button>
+                <div v-if="serverErrors" >
+                    <div v-for="(value, key) in serverErrors" :key="key" class="server-errors">
+                        {{ value[0] }}
+                    </div>              
+                </div> 
             </div>          
         </form>
     </div>
@@ -27,6 +32,7 @@ export default {
             name:'',
             email:'',
             password:'',
+            serverErrors: '',
         }
     },
     methods: {
@@ -38,6 +44,11 @@ export default {
             })
             .then(response => {
                 this.$router.push({ path:'/login' })
+            })
+            .catch(error=>{
+                 this.serverErrors = Object.values(error.response.data.errors)
+                 this.password=''
+                 //console.log(Object.values(error.response.data.errors));
             })
         }
     }

@@ -69,5 +69,13 @@ li{
 .yourtodo a{
     color:#09276b;
 }
+.server-errors{
+    margin-top: 14px;
+    font-size: 10px;
+    padding: 10px 16px;
+    color:#a94442;
+    background: #F3DEDE;
+    border-radius: 4px;
+}
 
 </style>
