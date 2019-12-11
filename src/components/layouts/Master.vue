@@ -31,7 +31,9 @@ export default {
   padding: 0;
   margin:0;
   font-size: 24px;
-  background-color: #567781;
+  /* background-color: #567781; */
+  background:url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/dark_wall.png);
+
   color:aquamarine;
 }
 .container{
@@ -54,9 +56,12 @@ export default {
     padding: 15px 0;
     margin: 0;
     justify-content: flex-end;
-    border-bottom: 1px solid rgb(179, 180, 171);
+    border-bottom: 1px solid rgb(98, 99, 90);
     margin-bottom: 24px;
-    background: rgb(155, 156, 148);
+    /* background: rgb(155, 156, 148); */
+    background: #444857;
+    color:#e3e4e8;
+    
 
 }
 .nav a {
@@ -67,13 +72,14 @@ export default {
     letter-spacing: .1rem;
     text-decoration: none;
     text-transform: uppercase;
-    background: rgb(155, 156, 148);
+    background: #444857;
+    color:#cccdd3;
 }
 li{
-    background: rgb(155, 156, 148);
+    background: #444857;
 }
 .yourtodo a{
-    color:#09276b;
+    color:#a2a3a5;
 }
 .server-errors{
     margin-top: 14px;
@@ -92,7 +98,7 @@ li{
     border-radius: 4px;
 }
 .page{
-    animation-duration:0.2s;
+    animation-duration:0.2s !important;
 }
 
 .spinner{
@@ -139,5 +145,98 @@ li{
 .btn-submit:disabled{
     cursor:not-allowed;
 }
+
+.login-header{
+
+  text-align: center;
+  padding:30px 0px 0px 0px;
+  font:25px Oswald;
+  color:#FFF;
+  text-transform:uppercase;
+  text-shadow:#000 0px 1px 5px;
+
+ 
+}
+.form{
+    margin-top: 10px;
+    width:420px;
+    
+}
+input[type="email"],input[type="password"],input[type="text"]{
+
+  outline:none;
+  border:none;
+
+  width:98%;
+  padding:15px 0px 15px 8px;
+  border-radius:5px;
+  box-shadow:inset 4px 6px 10px -4px rgba(0,0,0,0.3), 0 1px 1px -1px rgba(255,255,255,0.3);
+	background:rgba(0,0,0,0.2);
+  border:1px solid rgba(0,0,0,1);
+  margin-bottom:10px;
+  color:#6E6E6E;
+  text-shadow:#000 0px 1px 5px;
+}
+
+button[type="submit"]{
+
+   outline:none;
+   border:none;
+
+  width:100%;
+  padding:15px;
+  border-radius:5px;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#28D2DE), to(#1A878F));
+  background-image: -webkit-linear-gradient(#28D2DE 0%, #1A878F 100%);
+  background-image: -moz-linear-gradient(#28D2DE 0%, #1A878F 100%);
+  background-image: -o-linear-gradient(#28D2DE 0%, #1A878F 100%);
+  background-image: linear-gradient(#28D2DE 0%, #1A878F 100%);
+  font:14px Oswald;
+  color:#FFF;
+  text-transform:uppercase;
+  text-shadow:#000 0px 1px 5px;
+  border:1px solid #000;
+  opacity:0.7;
+	-webkit-box-shadow: 0 8px 6px -6px rgba(0,0,0,0.7);
+  -moz-box-shadow: 0 8px 6px -6px rgba(0,0,0,0.7);
+	box-shadow: 0 8px 6px -6px rgba(0,0,0,0.7);
+  border-top:1px solid rgba(255,255,255,0.8)!important;
+}
+
+button[type="submit"]:hover{
+  opacity:1;
+  cursor:pointer;
+}
+.input:focus{
+  box-shadow:inset 4px 6px 10px -4px rgba(0,0,0,0.7), 0 1px 1px -1px rgba(255,255,255,0.3);
+  background:rgba(0,0,0,0.3) !important;
+}
+
+.form{
+   margin:auto;
+   margin-top:18px;
+}
+
+
+
+@media(max-width:800px) {
+  
+  .nav{
+       width:100vw;
+  }
+  .nav li{
+       /* width:25%; */
+       
+  }
+  .form{
+    width:80vw;
+  }
+    .nav a{
+       font-size:10px
+       
+  }
+}
+
+
 
 </style>

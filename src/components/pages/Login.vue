@@ -1,15 +1,13 @@
 <template>
-    <div class="login-form flex-center page" >
-        <h2 class="login-header">Login</h2>
-        <form action="" @submit.prevent="login">
+    <div class="login-form page" >
+        <h1 class="login-header">Login</h1>
+        <form action="" @submit.prevent="login" class="form">
             
             <div class="form-control">
-                <label for="email">Email</label>
-                <input type="email" name="username" class="login-input" v-model="username">
+                <input type="email" name="username" class="login-input" placeholder="Email" v-model="username" >
             </div>
             <div class="form-control">
-                <label for="password">Password</label>
-                <input type="password" name="password" class="login-input" v-model="password">
+                <input type="password" name="password" class="login-input" placeholder="Password" v-model="password">
             </div>
             <div class="form-control">
                 <button type="submit" class="btn-submit" :disabled="loading">
@@ -59,8 +57,3 @@ export default {
     }
 }
 </script>
-<style>
-.form-control{
-    margin:10%;
-}
-</style>

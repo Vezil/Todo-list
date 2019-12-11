@@ -1,7 +1,7 @@
 <template>
   <div class="page">
       <div class="hello-container">
-                Welcome, {{ name }} this is your Todo list. Do your best !
+                Welcome {{ name }}, this is your Todo list. Do your best !
       </div>
     <input type="text" class="todo-input" placeholder="What do you have to do?" v-model="newTodo" @keyup.enter="addTodo">
 
@@ -62,9 +62,8 @@ export default {
 
         width:100%;
         padding: 10px 18px;
-        margin-bottom: 16px;
-        text-shadow: 1px 1px #0a1f18;
-     
+        margin-bottom: 30px !important;
+        text-shadow: 1px 1px #0a1f18;  
     }
     .todo-item{
 
@@ -99,7 +98,7 @@ export default {
         align-items: center;
     }
      .todo-input::placeholder{
-        color:rgb(78, 235, 247);
+        color:rgb(100, 110, 110);
     }
     .completed{
         text-decoration: line-through;
@@ -108,9 +107,17 @@ export default {
         transition: 1s;
     }
     .hello-container{
-        margin-bottom: 20px;
+        margin-bottom: 25px;
         color:rgb(235, 240, 230);
+        font-size:18px;
+        padding:8px;
     }
+    .page{
+        width:80%;
+        text-align: center;
+        margin:auto;
+    }
+
 
 </style>
 
