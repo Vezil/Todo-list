@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page">
       <div class="hello-container">
                 Welcome, {{ name }} this is your Todo list. Do your best !
       </div>
@@ -57,6 +57,7 @@ export default {
 
 <style>
 @import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.css");
+
     .todo-input{
 
         width:100%;

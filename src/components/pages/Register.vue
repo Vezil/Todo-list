@@ -1,5 +1,5 @@
 <template>
-    <div class="login-form flex-center" >
+    <div class="login-form flex-center page" >
         <h2 class="login-header">Register</h2>
         <form action="" @submit.prevent="register">
             <div class="form-control">
@@ -16,6 +16,8 @@
             </div>
             <div class="form-control">
                 <button type="submit" class="btn-submit">Create Account</button>
+                
+
                 <div v-if="serverErrors" >
                     <div v-for="(value, key) in serverErrors" :key="key" class="server-errors">
                         {{ value[0] }}
@@ -33,6 +35,7 @@ export default {
             email:'',
             password:'',
             serverErrors: '',
+            successMessages: '',
         }
     },
     methods: {
@@ -42,8 +45,13 @@ export default {
                 email: this.email,
                 password: this.password,
             })
-            .then(response => {
-                this.$router.push({ path:'/login' })
+            .then(response => {    
+                this.successMessages='Registered Successfully!'
+                this.$router.push({ path:'/login', params: { dataSuccessMessages: this.successMessages } })
+                this.$toast.success({
+                    title: this.successMessages,
+                    message: 'You can login now !'
+                })
             })
             .catch(error=>{
                  this.serverErrors = Object.values(error.response.data.errors)

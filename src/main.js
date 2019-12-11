@@ -7,10 +7,21 @@ import Login from './components/pages/Login'
 import Register from './components/pages/Register'
 import Logout from './components/pages/Logout'
 import {store} from './store/store'
+import * as VeeValidate from 'vee-validate'
+import CxltToastr from 'cxlt-vue2-toastr'
+
+const toastrConfigs = {
+  position:'bottom right',
+  showDuration: 2000,
+  timeOut: 5000,
+  progressBar:true,
+}
 
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)
+Vue.use(VeeValidate)
+Vue.use(CxltToastr, toastrConfigs)
 
 window.eventBus = new Vue()
 
@@ -29,6 +40,7 @@ const routes = [
   {
     path:'/login',
     component: Login,
+    props:true,
     meta: {
       requiresVisitor: true,
     }

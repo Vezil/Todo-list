@@ -1,3 +1,3 @@
 <template>
-    <div class="flex-center">Landing Page content here</div>
+    <div class="flex-center page">Landing Page content here</div>
 </template>
