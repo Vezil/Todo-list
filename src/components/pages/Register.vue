@@ -12,7 +12,8 @@
                 <input type="password" name="password" id="password" class="login-input" placeholder="Password" v-model="password">
             </div>
             <div class="form-control">
-                <button type="submit" class="btn-submit">Create Account</button>
+                <button type="submit" class="btn-submit" :disabled="loading">
+                    <div class="spinner"  v-if="loading"><div class="lds-facebook"><div></div><div></div><div></div></div>  </div>Create Account</button>
                 
 
                 <div v-if="serverErrors" >
@@ -33,16 +34,19 @@ export default {
             password:'',
             serverErrors: '',
             successMessages: '',
+            loading:false,
         }
     },
     methods: {
         register(){
+             this.loading=true
               this.$store.dispatch('register', {
                 name: this.name,
                 email: this.email,
                 password: this.password,
             })
-            .then(response => {    
+            .then(response => {
+                this.loading=false    
                 this.successMessages='Registered Successfully!'
                 this.$router.push({ path:'/login', params: { dataSuccessMessages: this.successMessages } })
                 this.$toast.success({
@@ -51,6 +55,7 @@ export default {
                 })
             })
             .catch(error=>{
+                 this.loading=false
                  this.serverErrors = Object.values(error.response.data.errors)
                  this.password=''
             })

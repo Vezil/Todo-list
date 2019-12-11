@@ -102,22 +102,26 @@ li{
 }
 
 .spinner{
-    position:absolute;
-    right:50%;
+    position: fixed;
+    left:48%;
 }
 .lds-facebook {
   display: inline-block;
   position: relative;
-  width: 80px;
+  width: 100px;
   height: 80px;
+  text-align: center;
 }
 .lds-facebook div {
   display: inline-block;
   position: absolute;
-  left: 8px;
-  width: 12px;
+
+  /* right: 8px; */
+  width: 16px;
+  height: 16px;
   background: #fff;
   animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  
 }
 .lds-facebook div:nth-child(1) {
   left: 8px;
@@ -235,6 +239,10 @@ button[type="submit"]:hover{
        font-size:10px
        
   }
+  .spinner{
+    position: fixed;
+    left:40%;
+}
 }
 
 

@@ -1,6 +1,6 @@
 <template>
     <div>
-        
+        <div class="spinner"  ><div class="lds-facebook"><div></div><div></div><div></div></div>  </div>
     </div>
 </template>
 <script>
